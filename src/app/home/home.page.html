@@ -7,8 +7,22 @@
 </ion-header>
 
 <ion-content>
-  <div class="ion-padding">
-    The world is your oyster.
-    <p>If you get lost, the <a target="_blank" rel="noopener" href="https://ionicframework.com/docs/">docs</a> will be your guide.</p>
-  </div>
+  <ion-img id="exhibition" src="assets/img/exhibition.png"></ion-img>
+  <h1 class="titles">Artworks</h1>
+  <ion-list lines="none">
+    <ion-item>
+      <ion-label>Mona Lisa</ion-label>
+      <ion-select [interfaceOptions]="customActionSheetOptions" interface="action-sheet">
+        <ion-select-option value="red">
+          Audio
+        </ion-select-option>
+        <ion-select-option value="red">
+          Text
+        </ion-select-option>
+        <ion-select-option value="red">
+          Video
+        </ion-select-option>
+      </ion-select>
+    </ion-item>
+  </ion-list>
 </ion-content>
