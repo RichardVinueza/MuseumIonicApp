@@ -1,18 +1,18 @@
 <ion-header>
   <ion-toolbar>
     <ion-title>
-      Museum
+      MUSEUM
     </ion-title>
   </ion-toolbar>
 </ion-header>
 
-<ion-content class="background">
-  <h1 class="titles">Exhibition</h1>
+<ion-content padding class="background">
+  <h1 class="titles">EXHIBITION</h1>
   <ion-img id="exhibition" src="assets/img/exhibition.png"></ion-img>
-  <h1 class="titles">Description</h1>
+  <h1 class="titles">DESCRIPTION</h1>
   <div *ngFor="let exhibit of exhibitArray">
     <div *ngIf="exhibit.id == 1">
-      <ion-list class="space" lines="none">
+      <ion-list lines="none">
         <ion-item class="descrip">
           <ion-label>Name: {{exhibit.name}}</ion-label>
         </ion-item>
@@ -28,18 +28,18 @@
       </ion-list>
     </div>
   </div>
-  <h1 class="titles">Artworks</h1>
+  <h1 class="titles">ARTWORKS</h1>
   <ion-list lines="none">
-    <ion-item >
+    <ion-item class="border">
       <ion-label>Mona Lisa</ion-label>
       <ion-select [interfaceOptions]="customActionSheetOptions" interface="action-sheet">
-        <ion-select-option value="red">
+        <ion-select-option>
           Audio
         </ion-select-option>
-        <ion-select-option value="red">
+        <ion-select-option>
           Text
         </ion-select-option>
-        <ion-select-option value="red">
+        <ion-select-option>
           Video
         </ion-select-option>
       </ion-select>
