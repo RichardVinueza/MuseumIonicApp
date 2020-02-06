@@ -29,20 +29,24 @@
     </div>
   </div>
   <h1 class="titles">ARTWORKS</h1>
-  <ion-list lines="none">
-    <ion-item class="border">
-      <ion-label>Mona Lisa</ion-label>
-      <ion-select [interfaceOptions]="customActionSheetOptions" interface="action-sheet">
-        <ion-select-option>
-          Audio
-        </ion-select-option>
-        <ion-select-option>
-          Text
-        </ion-select-option>
-        <ion-select-option>
-          Video
-        </ion-select-option>
-      </ion-select>
-    </ion-item>
-  </ion-list>
+  <div *ngFor="let art of artArray">
+    <div *ngIf="art.id == 1 || art.id == 2 || art.id == 3">
+      <ion-list lines="none">
+        <ion-item class="border">
+          <ion-label>{{art.name}}</ion-label>
+          <ion-select [interfaceOptions]="customActionSheetOptions" interface="action-sheet">
+            <ion-select-option>
+              Audio
+            </ion-select-option>
+            <ion-select-option>
+              Text
+            </ion-select-option>
+            <ion-select-option>
+              Video
+            </ion-select-option>
+          </ion-select>
+        </ion-item>
+      </ion-list>
+    </div>
+  </div>
 </ion-content>

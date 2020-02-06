@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { ExhibitionsService, exhibitions } from '../services/exhibitions.service';
+import { ExhibitionsService, exhibitions, artworks } from '../services/exhibitions.service';
 
 @Component({
   selector: 'app-home',
@@ -8,13 +8,17 @@ import { ExhibitionsService, exhibitions } from '../services/exhibitions.service
 })
 export class HomePage implements OnInit {
 
-  exhibitArray: Array <exhibitions> = [];
+  exhibitArray: Array<exhibitions> = [];
   exhibit : exhibitions;
+
+  artArray: Array<artworks> = [];
+  art : artworks;
 
   constructor(private apiExhibit : ExhibitionsService) {}
 
   ngOnInit(){
     this.getExhibitions();
+    this.getArtworks();
   }
 
   getExhibitions(){
@@ -22,6 +26,14 @@ export class HomePage implements OnInit {
       this.exhibitArray = res;
 
     })
+  }
+
+  getArtworks(){
+    this.apiExhibit.getArtworksFromBackEnd().subscribe((res : Array<artworks>) =>{
+      this.artArray = res;
+      console.log(res);
+    })
+ 
   }
 
 }

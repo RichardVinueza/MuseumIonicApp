@@ -9,9 +9,17 @@ export class exhibitions{
   location : string;
 }
 
+export class artworks{
+  id : number;
+  name : string;
+  author : string;
+  country : string;
+}
+
 @Injectable({
   providedIn: 'root'
 })
+
 export class ExhibitionsService {
 
   localhost = "http://localhost:8080"
@@ -20,5 +28,9 @@ export class ExhibitionsService {
 
   getExhibitionsFromBackEnd(){
     return this.http.get(this.localhost + "/exhibitions");
+  }
+
+  getArtworksFromBackEnd(){
+    return this.http.get(this.localhost + "/artworks");
   }
 }
