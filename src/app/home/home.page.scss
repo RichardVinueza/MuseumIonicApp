@@ -19,13 +19,19 @@
 .titles{
     align-items: center;
     margin: 20px 15px 0px;
-    font-size: 5vw;
+    font-size: 4vw;
+    font-weight: bold;
 }
 
 .descrip{
     font-size: 4vw;
 }
 
-.background{
-    background-color: lightblue;
+.border{
+    border:2px solid #59D9F7;
+    border-radius: 5px;
+    margin: 15px;
 }
+
+
+
