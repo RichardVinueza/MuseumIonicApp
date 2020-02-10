@@ -8,7 +8,11 @@
 
 <ion-content padding class="background" fullscreen>
   <h1 class="titles">EXHIBITION</h1>
-  <ion-img id="exhibition" src="assets/images/exhibition.png"></ion-img>
+  <div *ngFor="let media of mediaArray">
+    <div *ngIf="media.id == 1">
+      <ion-img id="exhibition" src="http://localhost:8080/img/icon.png"></ion-img>
+    </div>
+  </div>
   <h1 class="titles">DESCRIPTION</h1>
   <div *ngFor="let exhibit of exhibitArray">
     <ion-list *ngIf="exhibit.id == 1" lines="none">
@@ -34,7 +38,7 @@
         <div *ngFor="let media of mediaArray">
           <div *ngIf="media.id == 1">
             <ion-select-option>
-              Text
+              Image
             </ion-select-option>
             <ion-select-option>
               Audio
@@ -47,5 +51,9 @@
       </ion-select>
     </ion-item>
   </ion-list>
-  <ion-img [src]='showImg'></ion-img>
+  <div *ngFor="let media of mediaArray">
+    <div *ngIf="media.id == 1">
+      <ion-img src="http://localhost:8080/img/{{media.fileName}}.{{media.extension}}"></ion-img>
+    </div>
+  </div>
 </ion-content>

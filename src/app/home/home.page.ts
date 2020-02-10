@@ -18,8 +18,8 @@ export class HomePage implements OnInit {
   mediaArray : Array<Media> =[];
   media : Media;
 
-  img : Media;
-  showImg : string;
+  audio : Media;
+  audioToPlay : string;
 
 
   constructor(private apiExhibit : ExhibitionsService, private route : ActivatedRoute) {}
@@ -28,7 +28,7 @@ export class HomePage implements OnInit {
     this.getExhibitions();
     this.getArtworks();
     this.getMedia();
-    this.getImg();
+    // this.getImg();
   } 
 
   getExhibitions(){
@@ -50,12 +50,20 @@ export class HomePage implements OnInit {
     });
   }
 
-  getImg(){
-    this.route.queryParams.subscribe((res : Media) => {
-      this.img = res;
-      console.log("MEDIAAA: " + this.img);
+  playAudio(){
+    this.apiExhibit.getMediaFromBackEnd().subscribe((res : Array<Media>) =>{
+      this.mediaArray = res;
+
     });
-    this.showImg = localhost + '/img/' + this.img.fileName + '.' + this.img.extension;
-    console.log("SHOOOOW: " + this.showImg);
   }
+
+  // getImg(){
+  //   this.route.queryParams.subscribe((res : Media) => {
+  //     this.img = res;
+  //     console.log("MEDIAAA: " + this.img);
+  //     this.showImg = localhost + '/img/' + this.img.fileName + '.' + this.img.extension;
+  //     console.log("SHOOOOW: " + this.showImg);
+  //   });
+
+  // }
 }
