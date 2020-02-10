@@ -18,8 +18,10 @@ export class HomePage implements OnInit {
   mediaArray : Array<Media> =[];
   media : Media;
 
-  audio : Media;
+  imgToShow : string;
   audioToPlay : string;
+
+
 
 
   constructor(private apiExhibit : ExhibitionsService, private route : ActivatedRoute) {}
@@ -28,7 +30,8 @@ export class HomePage implements OnInit {
     this.getExhibitions();
     this.getArtworks();
     this.getMedia();
-    // this.getImg();
+    this.showImg();
+    this.playAudio();
   } 
 
   getExhibitions(){
@@ -50,20 +53,27 @@ export class HomePage implements OnInit {
     });
   }
 
-  playAudio(){
+  
+  showImg(){
     this.apiExhibit.getMediaFromBackEnd().subscribe((res : Array<Media>) =>{
       this.mediaArray = res;
-
+      for(this.media of this.mediaArray){
+        if(this.media.id == 1){
+          this.imgToShow = localhost + '/img/' + this.media.fileName + '.' + this.media.extension; 
+        }           
+      }
     });
   }
 
-  // getImg(){
-  //   this.route.queryParams.subscribe((res : Media) => {
-  //     this.img = res;
-  //     console.log("MEDIAAA: " + this.img);
-  //     this.showImg = localhost + '/img/' + this.img.fileName + '.' + this.img.extension;
-  //     console.log("SHOOOOW: " + this.showImg);
-  //   });
+  playAudio(){
+    this.apiExhibit.getMediaFromBackEnd().subscribe((res : Array<Media>) =>{
+      this.mediaArray = res;
+      for(this.media of this.mediaArray){
+        if(this.media.extension == 'mp3' ){
+          this.audioToPlay = localhost + '/audio/' + this.media.fileName + '.' + this.media.extension; 
+        }        
+      }
+    });
+  }
 
-  // }
 }

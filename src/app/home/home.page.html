@@ -51,9 +51,5 @@
       </ion-select>
     </ion-item>
   </ion-list>
-  <div *ngFor="let media of mediaArray">
-    <div *ngIf="media.id == 1">
-      <ion-img src="http://localhost:8080/img/{{media.fileName}}.{{media.extension}}"></ion-img>
-    </div>
-  </div>
+      <ion-img [src]='imgToShow'></ion-img>
 </ion-content>
