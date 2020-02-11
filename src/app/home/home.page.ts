@@ -19,7 +19,9 @@ export class HomePage implements OnInit {
   media : Media;
 
   imgToShow : string;
-  audioToPlay : string;
+
+  audioLink : string;
+  audio = new Audio();
 
 
 
@@ -31,7 +33,7 @@ export class HomePage implements OnInit {
     this.getArtworks();
     this.getMedia();
     this.showImg();
-    this.playAudio();
+    this.GetAudio();
   } 
 
   getExhibitions(){
@@ -65,15 +67,24 @@ export class HomePage implements OnInit {
     });
   }
 
-  playAudio(){
+
+  GetAudio(){
     this.apiExhibit.getMediaFromBackEnd().subscribe((res : Array<Media>) =>{
       this.mediaArray = res;
       for(this.media of this.mediaArray){
         if(this.media.extension == 'mp3' ){
-          this.audioToPlay = localhost + '/audio/' + this.media.fileName + '.' + this.media.extension; 
+          this.audioLink = localhost + '/audio/' + this.media.fileName + '.' + this.media.extension;       
         }        
       }
     });
   }
+
+  playAudio(){
+    this.audio = new Audio(this.audioLink);
+    this.audio.load();
+    this.audio.play();  
+    this.audio.loop = true;
+  }
+
 
 }

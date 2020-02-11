@@ -10,7 +10,7 @@
   <h1 class="titles">EXHIBITION</h1>
   <div *ngFor="let media of mediaArray">
     <div *ngIf="media.id == 1">
-      <ion-img id="exhibition" src="http://localhost:8080/img/icon.png"></ion-img>
+      <ion-img class="exhibition" src="http://localhost:8080/img/icon.png"></ion-img>
     </div>
   </div>
   <h1 class="titles">DESCRIPTION</h1>
@@ -51,5 +51,14 @@
       </ion-select>
     </ion-item>
   </ion-list>
-      <ion-img [src]='imgToShow'></ion-img>
+  <ion-img class="exhibition" [src]='imgToShow'></ion-img>
+  <!-- <ion-fab type="ion-button" (click)="playAudio()" vertical=center slot="fixed">
+    <audio controls autoplay></audio>
+  </ion-fab> -->
+  <!-- <ion-fab vertical=center slot="fixed">
+    <audio controls autoplay>
+      <source [src]='audio'  type="audio/mpeg"/>
+    </audio>
+  </ion-fab> -->
+  <ion-button class="exhibition" (click)="playAudio()" size="small" color="secondary">Play Audio</ion-button>
 </ion-content>
