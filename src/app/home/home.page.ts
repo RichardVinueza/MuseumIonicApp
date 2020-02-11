@@ -80,11 +80,13 @@ export class HomePage implements OnInit {
   }
 
   playAudio(){
+    this.audio.pause();
     this.audio = new Audio(this.audioLink);
     this.audio.load();
     this.audio.play();  
-    this.audio.loop = true;
+    this.audio.loop = false;
   }
+
 
 
 }
