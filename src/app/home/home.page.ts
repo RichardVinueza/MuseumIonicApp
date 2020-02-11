@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { ExhibitionsService, Exhibitions, Artworks, Media, localhost } from '../services/exhibitions.service';
 import { ActivatedRoute } from '@angular/router';
+import { VideoPlayer } from '@ionic-native/video-player/ngx';
+import { ModalController } from '@ionic/angular';
 
 @Component({
   selector: 'app-home',
@@ -23,10 +25,14 @@ export class HomePage implements OnInit {
   audioLink : string;
   audio = new Audio();
 
+  videoLink : string;
 
-
-
-  constructor(private apiExhibit : ExhibitionsService, private route : ActivatedRoute) {}
+  constructor(
+    private apiExhibit : ExhibitionsService, 
+    private route : ActivatedRoute,
+    private videoPlayer : VideoPlayer,
+    public modalCrtl : ModalController
+    ) {}
 
   ngOnInit(){
     this.getExhibitions();
@@ -34,6 +40,7 @@ export class HomePage implements OnInit {
     this.getMedia();
     this.showImg();
     this.GetAudio();
+    this.GetVideo();
   } 
 
   getExhibitions(){
@@ -85,6 +92,22 @@ export class HomePage implements OnInit {
     this.audio.load();
     this.audio.play();  
     this.audio.loop = false;
+  }
+
+  GetVideo(){
+    this.apiExhibit.getMediaFromBackEnd().subscribe((res : Array<Media>) =>{
+      this.mediaArray = res;
+      for(this.media of this.mediaArray){
+        if(this.media.extension == 'mp4' ){
+          this.videoLink = localhost + '/video/' + this.media.fileName + '.' + this.media.extension;  
+          console.log(this.videoLink);     
+        }        
+      }
+    });
+  }
+
+  playVideo(){
+    this.videoPlayer.play(this.videoLink);
   }
 
 
