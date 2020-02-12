@@ -24,6 +24,7 @@ export class HomePage implements OnInit {
 
   audioLink : string;
   audio = new Audio();
+  audioIsPlayed :boolean = false;
 
   videoLink : string;
 
@@ -39,8 +40,8 @@ export class HomePage implements OnInit {
     this.getArtworks();
     this.getMedia();
     this.showImg();
-    this.GetAudio();
-    this.GetVideo();
+    this.getAudio();
+    this.getVideo();
   } 
 
   getExhibitions(){
@@ -75,7 +76,7 @@ export class HomePage implements OnInit {
   }
 
 
-  GetAudio(){
+  getAudio(){
     this.apiExhibit.getMediaFromBackEnd().subscribe((res : Array<Media>) =>{
       this.mediaArray = res;
       for(this.media of this.mediaArray){
@@ -86,15 +87,28 @@ export class HomePage implements OnInit {
     });
   }
 
-  playAudio(){
-    this.audio.pause();
-    this.audio = new Audio(this.audioLink);
-    this.audio.load();
-    this.audio.play();  
-    this.audio.loop = false;
+  playerAudio(){
+    if(this.audioIsPlayed){
+      this.stopAudio();
+    }else{
+      this.playAudio();
+    }
   }
 
-  GetVideo(){
+  playAudio(){
+    this.audio = new Audio(this.audioLink);
+    this.audio.load();
+    this.audio.play(); 
+    this.audio.loop = false;
+    this.audioIsPlayed=true;
+  }
+
+  stopAudio(){
+    this.audio.pause();
+    this.audioIsPlayed=false;
+  }
+
+  getVideo(){
     this.apiExhibit.getMediaFromBackEnd().subscribe((res : Array<Media>) =>{
       this.mediaArray = res;
       for(this.media of this.mediaArray){
