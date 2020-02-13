@@ -1,8 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { ExhibitionsService, Exhibitions, Artworks, Media, localhost } from '../services/exhibitions.service';
 import { ActivatedRoute } from '@angular/router';
-import { VideoPlayer, VideoOptions } from '@ionic-native/video-player/ngx';
+// import { VideoPlayer, VideoOptions } from '@ionic-native/video-player/ngx';
 import { ModalController } from '@ionic/angular';
+import { Platform } from '@ionic/angular';
 
 @Component({
   selector: 'app-home',
@@ -26,7 +27,7 @@ export class HomePage implements OnInit {
   audio = new Audio();
   audioIsPlayed: boolean = false;
 
-  videoOptions: VideoOptions;
+  // videoOptions: VideoOptions;
   videoUrl: string;
 
 
@@ -35,8 +36,9 @@ export class HomePage implements OnInit {
   constructor(
     private apiExhibit: ExhibitionsService,
     private route: ActivatedRoute,
-    private videoPlayer: VideoPlayer,
-    public modalCrtl: ModalController
+    // private videoPlayer: VideoPlayer,
+    public modalCrtl: ModalController,
+    public platform : Platform
   ) { }
 
   ngOnInit() {
@@ -46,7 +48,12 @@ export class HomePage implements OnInit {
     this.showImg();
     this.getAudio();
     this.getVideo();
-    this.playVideo();
+    // this.playVideo();
+    if (this.platform.is('cordova')) {
+      console.log("CORDOVA WORKS");
+    } else {
+      console.log("CORDOVA DOESNT WORK");
+    }
   }
 
   getExhibitions() {
@@ -125,23 +132,23 @@ export class HomePage implements OnInit {
     });
   }
 
-  stopVideo() {
-    this.videoPlayer.close();
-    console.log("The video was stopped");
-  }
+  // stopVideo() {
+  //   this.videoPlayer.close();
+  //   console.log("The video was stopped");
+  // }
 
-  async playVideo() {
-    this.videoOptions = {
-      volume: 0.7
-    }
-    setTimeout(() => {
-      this.stopAudio();
-    }, 3000);
+  // async playVideo() {
+  //   this.videoOptions = {
+  //     volume: 0.7
+  //   }
+  //   setTimeout(() => {
+  //     this.stopAudio();
+  //   }, 3000);
 
-    await this.videoPlayer.play(this.videoUrl, this.videoOptions)
-    console.log("Video has completed");
-  }
-  catch(e) {
-    console.error(e);
-  }
+  //   await this.videoPlayer.play(this.videoUrl, this.videoOptions)
+  //   console.log("Video has completed");
+  // }
+  // catch(e) {
+  //   console.error(e);
+  // }
 }
