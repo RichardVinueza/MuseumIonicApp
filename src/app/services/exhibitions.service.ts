@@ -19,7 +19,7 @@ export class Artworks {
   country: string;
 }
 
-export class Media {
+export class MediaApi {
   id: number;
   displayName: string;
   fileName: string;

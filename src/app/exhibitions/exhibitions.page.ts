@@ -1,5 +1,8 @@
 import { Component, OnInit } from '@angular/core';
-import { ExhibitionsService, Exhibitions, Artworks, Media, localhost } from '../services/exhibitions.service';
+import { ExhibitionsService, Exhibitions, Artworks, MediaApi, localhost } from '../services/exhibitions.service';
+import { StreamingMedia, StreamingVideoOptions } from '@ionic-native/streaming-media/ngx';
+import { SplashScreen } from '@ionic-native/splash-screen';
+import { StatusBar } from '@ionic-native/status-bar';
 
 @Component({
   selector: 'app-exhibitions',
@@ -14,8 +17,8 @@ export class ExhibitionsPage implements OnInit {
   artArray: Array<Artworks> = [];
   art: Artworks;
 
-  mediaArray: Array<Media> = [];
-  media: Media;
+  mediaArray: Array<MediaApi> = [];
+  media: MediaApi;
 
   imgToShow: string;
 
@@ -27,6 +30,7 @@ export class ExhibitionsPage implements OnInit {
 
   constructor(
     private apiExhibit: ExhibitionsService,
+    private StreamingMedia : StreamingMedia
   ) { }
 
   ngOnInit() {
@@ -52,14 +56,14 @@ export class ExhibitionsPage implements OnInit {
   }
 
   getMedia() {
-    this.apiExhibit.getMediaFromBackEnd().subscribe((res: Array<Media>) => {
+    this.apiExhibit.getMediaFromBackEnd().subscribe((res: Array<MediaApi>) => {
       this.mediaArray = res;
     });
   }
 
 
   showImg() {
-    this.apiExhibit.getMediaFromBackEnd().subscribe((res: Array<Media>) => {
+    this.apiExhibit.getMediaFromBackEnd().subscribe((res: Array<MediaApi>) => {
       this.mediaArray = res;
       for (this.media of this.mediaArray) {
         if (this.media.id == 1) {
@@ -71,7 +75,7 @@ export class ExhibitionsPage implements OnInit {
 
 
   getAudio() {
-    this.apiExhibit.getMediaFromBackEnd().subscribe((res: Array<Media>) => {
+    this.apiExhibit.getMediaFromBackEnd().subscribe((res: Array<MediaApi>) => {
       this.mediaArray = res;
       for (this.media of this.mediaArray) {
         if (this.media.extension == 'mp3') {
@@ -103,7 +107,7 @@ export class ExhibitionsPage implements OnInit {
   }
 
   getVideo() {
-    this.apiExhibit.getMediaFromBackEnd().subscribe((res: Array<Media>) => {
+    this.apiExhibit.getMediaFromBackEnd().subscribe((res: Array<MediaApi>) => {
       this.mediaArray = res;
       for (this.media of this.mediaArray) {
         if (this.media.extension == 'mp4') {
@@ -112,5 +116,9 @@ export class ExhibitionsPage implements OnInit {
         }
       }
     });
+  }
+
+  playerVideo(){
+    this.StreamingMedia.playVideo(this.videoUrl);
   }
 }
