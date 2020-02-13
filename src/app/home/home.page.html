@@ -6,7 +6,7 @@
   </ion-toolbar>
 </ion-header>
 
-<ion-content padding class="background" fullscreen>
+<ion-content class="padding" class="background" fullscreen>
   <h1 class="titles">EXHIBITION</h1>
   <div *ngFor="let media of mediaArray">
     <div *ngIf="media.id == 1">
@@ -60,8 +60,6 @@
       <source [src]='audio'  type="audio/mpeg"/>
     </audio>
   </ion-fab> -->
-  <ion-button class="exhibition" (click)="playerAudio()" size="small" color="secondary">Play Audio</ion-button>
-  <video width="320" height="240" controls>
-    <source src="videoLink" type="video/mp4">
-  </video>
+  <ion-button class="exhibition" (click)="playAudio()" size="small" color="secondary">Play Audio</ion-button>
+  <ion-button (click)="playVideo()">PlayVideo</ion-button>
 </ion-content>

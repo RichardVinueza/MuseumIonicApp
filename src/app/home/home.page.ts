@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ExhibitionsService, Exhibitions, Artworks, Media, localhost } from '../services/exhibitions.service';
 import { ActivatedRoute } from '@angular/router';
-import { VideoPlayer } from '@ionic-native/video-player/ngx';
+import { VideoPlayer, VideoOptions } from '@ionic-native/video-player/ngx';
 import { ModalController } from '@ionic/angular';
 
 @Component({
@@ -12,118 +12,136 @@ import { ModalController } from '@ionic/angular';
 export class HomePage implements OnInit {
 
   exhibitArray: Array<Exhibitions> = [];
-  exhibit : Exhibitions;
+  exhibit: Exhibitions;
 
   artArray: Array<Artworks> = [];
-  art : Artworks;
+  art: Artworks;
 
-  mediaArray : Array<Media> =[];
-  media : Media;
+  mediaArray: Array<Media> = [];
+  media: Media;
 
-  imgToShow : string;
+  imgToShow: string;
 
-  audioLink : string;
+  audioLink: string;
   audio = new Audio();
-  audioIsPlayed :boolean = false;
+  audioIsPlayed: boolean = false;
 
-  videoLink : string;
+  videoOptions: VideoOptions;
+  videoUrl: string;
+
+
+
 
   constructor(
-    private apiExhibit : ExhibitionsService, 
-    private route : ActivatedRoute,
-    private videoPlayer : VideoPlayer,
-    public modalCrtl : ModalController
-    ) {}
+    private apiExhibit: ExhibitionsService,
+    private route: ActivatedRoute,
+    private videoPlayer: VideoPlayer,
+    public modalCrtl: ModalController
+  ) { }
 
-  ngOnInit(){
+  ngOnInit() {
     this.getExhibitions();
     this.getArtworks();
     this.getMedia();
     this.showImg();
     this.getAudio();
     this.getVideo();
-  } 
+    this.playVideo();
+  }
 
-  getExhibitions(){
-    this.apiExhibit.getExhibitionsFromBackEnd().subscribe((res : Array<Exhibitions>) => {
+  getExhibitions() {
+    this.apiExhibit.getExhibitionsFromBackEnd().subscribe((res: Array<Exhibitions>) => {
       this.exhibitArray = res;
     });
   }
 
-  getArtworks(){
-    this.apiExhibit.getArtworksFromBackEnd().subscribe((res : Array<Artworks>) =>{
+  getArtworks() {
+    this.apiExhibit.getArtworksFromBackEnd().subscribe((res: Array<Artworks>) => {
       this.artArray = res;
       console.log(res);
     });
   }
 
-  getMedia(){
-    this.apiExhibit.getMediaFromBackEnd().subscribe((res : Array<Media>) =>{
+  getMedia() {
+    this.apiExhibit.getMediaFromBackEnd().subscribe((res: Array<Media>) => {
       this.mediaArray = res;
     });
   }
 
-  
-  showImg(){
-    this.apiExhibit.getMediaFromBackEnd().subscribe((res : Array<Media>) =>{
+
+  showImg() {
+    this.apiExhibit.getMediaFromBackEnd().subscribe((res: Array<Media>) => {
       this.mediaArray = res;
-      for(this.media of this.mediaArray){
-        if(this.media.id == 1){
-          this.imgToShow = localhost + '/img/' + this.media.fileName + '.' + this.media.extension; 
-        }           
+      for (this.media of this.mediaArray) {
+        if (this.media.id == 1) {
+          this.imgToShow = localhost + '/img/' + this.media.fileName + '.' + this.media.extension;
+        }
       }
     });
   }
 
 
-  getAudio(){
-    this.apiExhibit.getMediaFromBackEnd().subscribe((res : Array<Media>) =>{
+  getAudio() {
+    this.apiExhibit.getMediaFromBackEnd().subscribe((res: Array<Media>) => {
       this.mediaArray = res;
-      for(this.media of this.mediaArray){
-        if(this.media.extension == 'mp3' ){
-          this.audioLink = localhost + '/audio/' + this.media.fileName + '.' + this.media.extension;       
-        }        
+      for (this.media of this.mediaArray) {
+        if (this.media.extension == 'mp3') {
+          this.audioLink = localhost + '/audio/' + this.media.fileName + '.' + this.media.extension;
+        }
       }
     });
   }
 
-  playerAudio(){
-    if(this.audioIsPlayed){
+  playerAudio() {
+    if (this.audioIsPlayed) {
       this.stopAudio();
-    }else{
+    } else {
       this.playAudio();
     }
   }
 
-  playAudio(){
+  playAudio() {
     this.audio = new Audio(this.audioLink);
     this.audio.load();
-    this.audio.play(); 
+    this.audio.play();
     this.audio.loop = false;
-    this.audioIsPlayed=true;
+    this.audioIsPlayed = true;
   }
 
-  stopAudio(){
+  stopAudio() {
     this.audio.pause();
-    this.audioIsPlayed=false;
+    this.audioIsPlayed = false;
   }
 
-  getVideo(){
-    this.apiExhibit.getMediaFromBackEnd().subscribe((res : Array<Media>) =>{
+  getVideo() {
+    this.apiExhibit.getMediaFromBackEnd().subscribe((res: Array<Media>) => {
       this.mediaArray = res;
-      for(this.media of this.mediaArray){
-        if(this.media.extension == 'mp4' ){
-          this.videoLink = localhost + '/video/' + this.media.fileName + '.' + this.media.extension;  
-          console.log(this.videoLink);     
-        }        
+      for (this.media of this.mediaArray) {
+        if (this.media.extension == 'mp4') {
+          this.videoUrl = localhost + '/video/' + this.media.fileName + '.' + this.media.extension;
+          console.log("videoooooo: " + this.videoUrl);
+        }
       }
     });
   }
 
-  playVideo(){
-    this.videoPlayer.play(this.videoLink);
+  stopVideo() {
+    this.videoPlayer.close();
+    console.log("The video was stopped");
   }
 
+  async playVideo() {
+    this.videoOptions = {
+      volume: 0.7
+    }
+    setTimeout(() => {
+      this.stopAudio();
+    }, 3000);
 
-
+    await this.videoPlayer.play(this.videoUrl, this.videoOptions)
+    console.log("Video has completed");
+  }
+  catch(e) {
+    console.error(e);
+  }
 }

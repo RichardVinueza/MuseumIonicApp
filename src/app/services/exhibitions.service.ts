@@ -1,29 +1,30 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
+import { DomSanitizer } from '@angular/platform-browser';
 
 export const localhost = "http://localhost:8080";
 
-export class Exhibitions{
-  id : number;
-  name : string;
-  openingDate : string;
-  closingDate : string;
-  location : string;
-}
-
-export class Artworks{
-  id : number;
-  name : string;
-  author : string;
-  country : string;
-}
-
-export class Media{
+export class Exhibitions {
   id: number;
-  displayName : string;
-  fileName : string;
-  fileType : string;
-  extension : string;
+  name: string;
+  openingDate: string;
+  closingDate: string;
+  location: string;
+}
+
+export class Artworks {
+  id: number;
+  name: string;
+  author: string;
+  country: string;
+}
+
+export class Media {
+  id: number;
+  displayName: string;
+  fileName: string;
+  fileType: string;
+  extension: string;
 
 }
 
@@ -33,17 +34,17 @@ export class Media{
 
 export class ExhibitionsService {
 
-  constructor(private http : HttpClient) { }
+  constructor(private http: HttpClient, public sanatizer: DomSanitizer) { }
 
-  getExhibitionsFromBackEnd(){
-    return this.http.get(localhost +  "/exhibitions");
+  getExhibitionsFromBackEnd() {
+    return this.http.get(localhost + "/exhibitions");
   }
 
-  getArtworksFromBackEnd(){
+  getArtworksFromBackEnd() {
     return this.http.get(localhost + "/artworks");
   }
 
-  getMediaFromBackEnd(){
+  getMediaFromBackEnd() {
     return this.http.get(localhost + "/medias");
   }
 
