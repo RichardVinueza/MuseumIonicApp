@@ -1,4 +1,5 @@
 import { Component} from '@angular/core';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-home',
@@ -9,6 +10,14 @@ export class HomePage   {
 
   
   constructor( 
+    private route : Router
   ) { }
+
+  ionViewWillEnter() {
+    setTimeout(() => {
+      this.route.navigate(['/exhibitions']);
+    }, 1990);
+
+  }
 
 }
