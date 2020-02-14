@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { DomSanitizer } from '@angular/platform-browser';
 
-export const localhost = "http://localhost:8080";
+export const localhost = "http://192.168.203.83:8080";
 
 export class Exhibitions {
   id: number;
@@ -19,7 +19,7 @@ export class Artworks {
   country: string;
 }
 
-export class Media {
+export class MediaApi {
   id: number;
   displayName: string;
   fileName: string;

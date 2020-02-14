@@ -1,9 +1,8 @@
 import { Component, OnInit } from '@angular/core';
-import { ExhibitionsService, Exhibitions, Artworks, Media, localhost } from '../services/exhibitions.service';
-import { ActivatedRoute } from '@angular/router';
-// import { VideoPlayer, VideoOptions } from '@ionic-native/video-player/ngx';
-import { ModalController } from '@ionic/angular';
-import { Platform } from '@ionic/angular';
+import { ExhibitionsService, Exhibitions, Artworks, MediaApi, localhost } from '../services/exhibitions.service';
+import { StreamingMedia, StreamingVideoOptions } from '@ionic-native/streaming-media/ngx';
+import { SplashScreen } from '@ionic-native/splash-screen';
+import { StatusBar } from '@ionic-native/status-bar';
 
 @Component({
   selector: 'app-exhibitions',
@@ -18,8 +17,8 @@ export class ExhibitionsPage implements OnInit {
   artArray: Array<Artworks> = [];
   art: Artworks;
 
-  mediaArray: Array<Media> = [];
-  media: Media;
+  mediaArray: Array<MediaApi> = [];
+  media: MediaApi;
 
   imgToShow: string;
 
@@ -27,15 +26,11 @@ export class ExhibitionsPage implements OnInit {
   audio = new Audio();
   audioIsPlayed: boolean = false;
 
-  // videoOptions: VideoOptions;
   videoUrl: string;
 
   constructor(
     private apiExhibit: ExhibitionsService,
-    private route: ActivatedRoute,
-    // private videoPlayer: VideoPlayer,
-    public modalCrtl: ModalController,
-    public platform: Platform
+    private StreamingMedia : StreamingMedia
   ) { }
 
   ngOnInit() {
@@ -45,12 +40,6 @@ export class ExhibitionsPage implements OnInit {
     this.showImg();
     this.getAudio();
     this.getVideo();
-    // this.playVideo();
-    if (this.platform.is('cordova')) {
-      console.log("CORDOVA WORKS");
-    } else {
-      console.log("CORDOVA DOESNT WORK");
-    }
   }
 
   getExhibitions() {
@@ -67,14 +56,14 @@ export class ExhibitionsPage implements OnInit {
   }
 
   getMedia() {
-    this.apiExhibit.getMediaFromBackEnd().subscribe((res: Array<Media>) => {
+    this.apiExhibit.getMediaFromBackEnd().subscribe((res: Array<MediaApi>) => {
       this.mediaArray = res;
     });
   }
 
 
   showImg() {
-    this.apiExhibit.getMediaFromBackEnd().subscribe((res: Array<Media>) => {
+    this.apiExhibit.getMediaFromBackEnd().subscribe((res: Array<MediaApi>) => {
       this.mediaArray = res;
       for (this.media of this.mediaArray) {
         if (this.media.id == 1) {
@@ -86,7 +75,7 @@ export class ExhibitionsPage implements OnInit {
 
 
   getAudio() {
-    this.apiExhibit.getMediaFromBackEnd().subscribe((res: Array<Media>) => {
+    this.apiExhibit.getMediaFromBackEnd().subscribe((res: Array<MediaApi>) => {
       this.mediaArray = res;
       for (this.media of this.mediaArray) {
         if (this.media.extension == 'mp3') {
@@ -118,7 +107,7 @@ export class ExhibitionsPage implements OnInit {
   }
 
   getVideo() {
-    this.apiExhibit.getMediaFromBackEnd().subscribe((res: Array<Media>) => {
+    this.apiExhibit.getMediaFromBackEnd().subscribe((res: Array<MediaApi>) => {
       this.mediaArray = res;
       for (this.media of this.mediaArray) {
         if (this.media.extension == 'mp4') {
@@ -129,24 +118,7 @@ export class ExhibitionsPage implements OnInit {
     });
   }
 
-  // stopVideo() {
-  //   this.videoPlayer.close();
-  //   console.log("The video was stopped");
-  // }
-
-  // async playVideo() {
-  //   this.videoOptions = {
-  //     volume: 0.7
-  //   }
-  //   setTimeout(() => {
-  //     this.stopAudio();
-  //   }, 3000);
-
-  //   await this.videoPlayer.play(this.videoUrl, this.videoOptions)
-  //   console.log("Video has completed");
-  // }
-  // catch(e) {
-  //   console.error(e);
-  // }
-
+  playerVideo(){
+    this.StreamingMedia.playVideo(this.videoUrl);
+  }
 }
