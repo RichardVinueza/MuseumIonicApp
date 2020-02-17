@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { DomSanitizer } from '@angular/platform-browser';
 
-export const localhost = "http://192.168.203.65:8080";
+export const localhost = "http://192.168.103.66:8080";
 
 export class Exhibitions {
   id: number;
