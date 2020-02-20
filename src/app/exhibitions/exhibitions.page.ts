@@ -13,6 +13,9 @@ export class ExhibitionsPage implements OnInit {
 
   exhibitArray: Array<Exhibitions> = [];
   exhibit: Exhibitions;
+  auxEhibitArray: Array<Exhibitions> = [];
+  auxExhibit : Exhibitions;
+  exhibitBool : boolean;
 
   artArray: Array<Artworks> = [];
   art: Artworks;
@@ -35,6 +38,7 @@ export class ExhibitionsPage implements OnInit {
 
   ngOnInit() {
     this.getExhibitions();
+    // this.changeExhibtion();
     this.getArtworks();
     this.getMedia();
     this.showImg();
@@ -44,19 +48,16 @@ export class ExhibitionsPage implements OnInit {
 
   getExhibitions() {
     this.apiExhibit.getExhibitionsFromBackEnd().subscribe((res: Array<Exhibitions>) => {
-      this.exhibitArray = res;
-      for (this.exhibit of this.exhibitArray) {
-        if (this.exhibit.id == 1) {
-          setTimeout(() => {
-            this.exhibit.id == 2
-          }, 500);
-        } else if (this.exhibit.id == 2) {
-          setTimeout(() => {
-            this.exhibit.id == 1
-          }, 500);
-        }
-      }
+      this.exhibitArray = res;  
+      console.log(res); 
+      this.changeExhibtion(); 
     });
+  }
+
+  changeExhibtion(){
+    for (this.exhibit of this.exhibitArray) {
+      this.exhibit.id == 1;
+    }   
   }
 
   getArtworks() {
@@ -66,7 +67,7 @@ export class ExhibitionsPage implements OnInit {
       for (this.art of this.artArray) {
         if (this.art.country == "Italy") {
           setTimeout(() => {
-            console.log("CHANGE COUNTRY");
+            // console.log("CHANGE COUNTRY");
             this.art.country == "France"
           }, 500);
         } 
@@ -131,7 +132,7 @@ export class ExhibitionsPage implements OnInit {
       for (this.media of this.mediaArray) {
         if (this.media.extension == 'mp4') {
           this.videoUrl = localhost + '/video/' + this.media.fileName + '.' + this.media.extension;
-          console.log("videoooooo: " + this.videoUrl);
+          // console.log("videoooooo: " + this.videoUrl);
         }
       }
     });

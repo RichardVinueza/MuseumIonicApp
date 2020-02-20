@@ -8,12 +8,14 @@
   <h1 class="titles">EXHIBITION</h1>
   <div *ngFor="let media of mediaArray">
     <div *ngIf="media.id == 1">
-      <ion-img class="exhibition" src="http://192.168.0.14:8080/img/icon.png"></ion-img>
+      <ion-img class="exhibition" src="http://192.168.103.66:8080/img/icon.png"></ion-img>
     </div>
   </div>
   <h1 class="titles">DESCRIPTION</h1>
-  <div *ngFor="let exhibit of exhibitArray">
-    <ion-list *ngIf="exhibit.id == 1" lines="none">
+  <!-- <div *ngFor="let exhibit of exhibitArray"> -->
+  <!-- <div *ngIf="exhibit.id == exhibit.id"> -->
+  <div [(ngModel)]="exhibit">
+    <ion-list lines="none">
       <ion-item class="descrip">
         <ion-label>Name: {{exhibit.name}}</ion-label>
       </ion-item>
@@ -28,6 +30,8 @@
       </ion-item>
     </ion-list>
   </div>
+  <!-- </div> -->
+  <!-- </div> -->
   <h1 class="titles">ARTWORKS</h1>
   <ion-list *ngFor="let art of artArray" lines="none">
     <ion-item *ngIf="art.country == 'Italy'" class="border">
