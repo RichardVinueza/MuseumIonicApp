@@ -8,7 +8,7 @@
   <h1 class="titles">EXHIBITION</h1>
   <div *ngFor="let media of mediaArray">
     <div *ngIf="media.id == 1">
-      <ion-img class="exhibition" src="http://localhost:8080/img/icon.png"></ion-img>
+      <ion-img class="exhibition" src="http://192.168.103.66:8080/img/icon.png"></ion-img>
     </div>
   </div>
   <h1 class="titles">DESCRIPTION</h1>
@@ -30,7 +30,7 @@
   </div>
   <h1 class="titles">ARTWORKS</h1>
   <ion-list *ngFor="let art of artArray" lines="none">
-    <ion-item *ngIf="art.id == 1" class="border">
+    <ion-item *ngIf="art.country == 'Italy'" class="border">
       <ion-label>{{art.name}}</ion-label>
       <ion-select [interfaceOptions]="customActionSheetOptions" interface="action-sheet">
         <div *ngFor="let media of mediaArray">

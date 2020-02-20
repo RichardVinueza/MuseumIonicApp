@@ -30,7 +30,7 @@ export class ExhibitionsPage implements OnInit {
 
   constructor(
     private apiExhibit: ExhibitionsService,
-    private StreamingMedia : StreamingMedia
+    private StreamingMedia: StreamingMedia
   ) { }
 
   ngOnInit() {
@@ -45,6 +45,17 @@ export class ExhibitionsPage implements OnInit {
   getExhibitions() {
     this.apiExhibit.getExhibitionsFromBackEnd().subscribe((res: Array<Exhibitions>) => {
       this.exhibitArray = res;
+      for (this.exhibit of this.exhibitArray) {
+        if (this.exhibit.id == 1) {
+          setTimeout(() => {
+            this.exhibit.id == 2
+          }, 500);
+        } else if (this.exhibit.id == 2) {
+          setTimeout(() => {
+            this.exhibit.id == 1
+          }, 500);
+        }
+      }
     });
   }
 
@@ -52,6 +63,14 @@ export class ExhibitionsPage implements OnInit {
     this.apiExhibit.getArtworksFromBackEnd().subscribe((res: Array<Artworks>) => {
       this.artArray = res;
       console.log(res);
+      for (this.art of this.artArray) {
+        if (this.art.country == "Italy") {
+          setTimeout(() => {
+            console.log("CHANGE COUNTRY");
+            this.art.country == "France"
+          }, 500);
+        } 
+      }
     });
   }
 
@@ -118,7 +137,7 @@ export class ExhibitionsPage implements OnInit {
     });
   }
 
-  playerVideo(){
+  playerVideo() {
     this.StreamingMedia.playVideo(this.videoUrl);
   }
 }
