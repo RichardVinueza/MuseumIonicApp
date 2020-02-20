@@ -18,6 +18,10 @@ export class HomePage   {
       this.route.navigate(['/exhibitions']);
     }, 1990);
 
+    setTimeout(() => {
+      
+    }, 0);
+
   }
 
 }

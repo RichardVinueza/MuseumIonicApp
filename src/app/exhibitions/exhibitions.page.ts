@@ -3,6 +3,7 @@ import { ExhibitionsService, Exhibitions, Artworks, MediaApi, localhost } from '
 import { StreamingMedia, StreamingVideoOptions } from '@ionic-native/streaming-media/ngx';
 import { SplashScreen } from '@ionic-native/splash-screen';
 import { StatusBar } from '@ionic-native/status-bar';
+import { typeWithParameters } from '@angular/compiler/src/render3/util';
 
 @Component({
   selector: 'app-exhibitions',
@@ -13,6 +14,9 @@ export class ExhibitionsPage implements OnInit {
 
   exhibitArray: Array<Exhibitions> = [];
   exhibit: Exhibitions;
+  auxEhibitArray: Array<Exhibitions> = [];
+  auxExhibit: Exhibitions;
+  exhibitBool: boolean;
 
   artArray: Array<Artworks> = [];
   art: Artworks;
@@ -34,44 +38,68 @@ export class ExhibitionsPage implements OnInit {
   ) { }
 
   ngOnInit() {
-    this.getExhibitions();
     this.getArtworks();
     this.getMedia();
-    this.showImg();
+    // this.showImg();
     this.getAudio();
     this.getVideo();
+  }
+
+  ngAfterViewInit() {
+    this.getExhibitions();
   }
 
   getExhibitions() {
     this.apiExhibit.getExhibitionsFromBackEnd().subscribe((res: Array<Exhibitions>) => {
       this.exhibitArray = res;
-      for (this.exhibit of this.exhibitArray) {
-        if (this.exhibit.id == 1) {
-          setTimeout(() => {
-            this.exhibit.id == 2
-          }, 500);
-        } else if (this.exhibit.id == 2) {
-          setTimeout(() => {
-            this.exhibit.id == 1
-          }, 500);
-        }
-      }
+      console.log(res);
+      // setTimeout(() => {
+      //   this.changeExhibition();
+      // }, 10000);
+
     });
+  }
+
+  changeExhibition() {
+    for (this.exhibit of this.exhibitArray) {
+      if (this.exhibit.id == 3 || this.exhibit.id == 2) {
+        this.exhibit.location = 'Area 1';
+      }
+      if (this.exhibit.id == 1) {
+        this.exhibit.location = 'Area 2';
+      }
+    }
   }
 
   getArtworks() {
     this.apiExhibit.getArtworksFromBackEnd().subscribe((res: Array<Artworks>) => {
       this.artArray = res;
       console.log(res);
-      for (this.art of this.artArray) {
-        if (this.art.country == "Italy") {
-          setTimeout(() => {
-            console.log("CHANGE COUNTRY");
-            this.art.country == "France"
-          }, 500);
-        } 
-      }
+      // setTimeout(() => {
+      //   this.changeArtwork();
+      // }, 10000);
+      
     });
+  }
+
+  changeArtwork() {
+    for (this.art of this.artArray) {
+      if (this.art.id == 4) {
+        this.art.country = 'Italy';
+      }
+      if (this.art.id == 5) {
+        this.art.country = 'Italy';
+      }
+      if (this.art.id == 1) {
+        this.art.country = 'France';
+      }
+      if (this.art.id == 2) {
+        this.art.country = 'France';
+      }
+      if (this.art.id == 3) {
+        this.art.country = 'France';
+      }
+    }
   }
 
   getMedia() {
@@ -79,7 +107,6 @@ export class ExhibitionsPage implements OnInit {
       this.mediaArray = res;
     });
   }
-
 
   showImg() {
     this.apiExhibit.getMediaFromBackEnd().subscribe((res: Array<MediaApi>) => {
@@ -90,8 +117,8 @@ export class ExhibitionsPage implements OnInit {
         }
       }
     });
+    document.getElementById('picture').style.display = 'block';
   }
-
 
   getAudio() {
     this.apiExhibit.getMediaFromBackEnd().subscribe((res: Array<MediaApi>) => {
@@ -102,6 +129,7 @@ export class ExhibitionsPage implements OnInit {
         }
       }
     });
+
   }
 
   playerAudio() {
@@ -131,7 +159,7 @@ export class ExhibitionsPage implements OnInit {
       for (this.media of this.mediaArray) {
         if (this.media.extension == 'mp4') {
           this.videoUrl = localhost + '/video/' + this.media.fileName + '.' + this.media.extension;
-          console.log("videoooooo: " + this.videoUrl);
+          // console.log("videoooooo: " + this.videoUrl);
         }
       }
     });
