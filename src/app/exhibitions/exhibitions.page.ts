@@ -49,10 +49,9 @@ export class ExhibitionsPage implements OnInit {
     this.getExhibitions();
   }
 
-  getExhibitions() {
-    this.apiExhibit.getExhibitionsFromBackEnd().subscribe((res: Array<Exhibitions>) => {
+  async getExhibitions() {
+    await this.apiExhibit.getExhibitionsFromBackEnd().subscribe((res: Array<Exhibitions>) => {
       this.exhibitArray = res;
-      console.log(res);
       // setTimeout(() => {
       //   this.changeExhibition();
       // }, 10000);
@@ -74,7 +73,6 @@ export class ExhibitionsPage implements OnInit {
   getArtworks() {
     this.apiExhibit.getArtworksFromBackEnd().subscribe((res: Array<Artworks>) => {
       this.artArray = res;
-      console.log(res);
       // setTimeout(() => {
       //   this.changeArtwork();
       // }, 10000);
@@ -102,8 +100,8 @@ export class ExhibitionsPage implements OnInit {
     }
   }
 
-  getMedia() {
-    this.apiExhibit.getMediaFromBackEnd().subscribe((res: Array<MediaApi>) => {
+  async getMedia() {
+    await this.apiExhibit.getMediaFromBackEnd().subscribe((res: Array<MediaApi>) => {
       this.mediaArray = res;
     });
   }
