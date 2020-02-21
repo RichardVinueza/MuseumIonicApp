@@ -12,6 +12,8 @@ import { typeWithParameters } from '@angular/compiler/src/render3/util';
 })
 export class ExhibitionsPage implements OnInit {
 
+  localhost = localhost;
+
   exhibitArray: Array<Exhibitions> = [];
   exhibit: Exhibitions;
   auxEhibitArray: Array<Exhibitions> = [];
@@ -19,7 +21,9 @@ export class ExhibitionsPage implements OnInit {
   exhibitBool: boolean;
 
   artArray: Array<Artworks> = [];
+  artArrayShow = new Array<Artworks>();
   art: Artworks;
+  imgArtwork: any;
 
   mediaArray: Array<MediaApi> = [];
   media: MediaApi;
@@ -31,6 +35,7 @@ export class ExhibitionsPage implements OnInit {
   audioIsPlayed: boolean = false;
 
   videoUrl: string;
+  typeFileChoices: [String];
 
   constructor(
     private apiExhibit: ExhibitionsService,
@@ -39,10 +44,10 @@ export class ExhibitionsPage implements OnInit {
 
   ngOnInit() {
     this.getArtworks();
-    this.getMedia();
-    // this.showImg();
-    this.getAudio();
-    this.getVideo();
+    // this.getMedia();
+    // this.getImg();
+    // this.getAudio();
+    // this.getVideo();
   }
 
   ngAfterViewInit() {
@@ -52,10 +57,10 @@ export class ExhibitionsPage implements OnInit {
   async getExhibitions() {
     await this.apiExhibit.getExhibitionsFromBackEnd().subscribe((res: Array<Exhibitions>) => {
       this.exhibitArray = res;
+      console.log(res);
       // setTimeout(() => {
       //   this.changeExhibition();
-      // }, 10000);
-
+      // }, 5000);
     });
   }
 
@@ -70,13 +75,13 @@ export class ExhibitionsPage implements OnInit {
     }
   }
 
-  getArtworks() {
-    this.apiExhibit.getArtworksFromBackEnd().subscribe((res: Array<Artworks>) => {
+  async getArtworks() {
+    await this.apiExhibit.getArtworksFromBackEnd().subscribe((res: Array<Artworks>) => {
       this.artArray = res;
       // setTimeout(() => {
       //   this.changeArtwork();
-      // }, 10000);
-      
+      // }, 5000);
+
     });
   }
 
@@ -106,7 +111,7 @@ export class ExhibitionsPage implements OnInit {
     });
   }
 
-  showImg() {
+  getImg() {
     this.apiExhibit.getMediaFromBackEnd().subscribe((res: Array<MediaApi>) => {
       this.mediaArray = res;
       for (this.media of this.mediaArray) {
@@ -115,8 +120,50 @@ export class ExhibitionsPage implements OnInit {
         }
       }
     });
-    document.getElementById('picture').style.display = 'block';
   }
+
+  changeTypeFile(event) {
+    let fileChoice: [String] = event.detail.value;
+    if (fileChoice == []) {
+      this.typeFileChoices = ["image"]
+      this.artArrayShow = this.artArray;
+    } else {
+      this.loadArtWorkShow(fileChoice);
+    }
+  }
+
+  loadArtWorkShow(fileChoice: [String]) {
+    this.artArrayShow = new Array<Artworks>();
+    for (let art of this.artArray) {
+      let mediaShow = false;
+      for (let media of art.media) {
+        if (fileChoice.includes(media.fileType)) {
+          mediaShow = true;
+        }
+      }
+      if (mediaShow == true) {
+        this.artArrayShow.push(art);
+      }
+    }
+    console.log(this.artArrayShow);
+  }
+
+  // showImage(){
+  //   console.log("HIDE IMAGE");
+  //   document.getElementById("picture").style.display = 'none';
+  // }
+
+  // getAudio() {
+  //   this.apiExhibit.getMediaFromBackEnd().subscribe((res: Array<MediaApi>) => {
+  //     this.mediaArray = res;
+  //     for (this.media of this.mediaArray) {
+  //       if (this.media.extension == 'mp3') {
+  //         this.audioLink = localhost + '/audio/' + this.media.fileName + '.' + this.media.extension;
+  //       }
+  //     }
+  //   });
+  // }
+
 
   getAudio() {
     this.apiExhibit.getMediaFromBackEnd().subscribe((res: Array<MediaApi>) => {
@@ -127,7 +174,6 @@ export class ExhibitionsPage implements OnInit {
         }
       }
     });
-
   }
 
   playerAudio() {
@@ -151,19 +197,19 @@ export class ExhibitionsPage implements OnInit {
     this.audioIsPlayed = false;
   }
 
-  getVideo() {
-    this.apiExhibit.getMediaFromBackEnd().subscribe((res: Array<MediaApi>) => {
-      this.mediaArray = res;
-      for (this.media of this.mediaArray) {
-        if (this.media.extension == 'mp4') {
-          this.videoUrl = localhost + '/video/' + this.media.fileName + '.' + this.media.extension;
-          // console.log("videoooooo: " + this.videoUrl);
-        }
-      }
-    });
-  }
+  // getVideo() {
+  //   this.apiExhibit.getMediaFromBackEnd().subscribe((res: Array<MediaApi>) => {
+  //     this.mediaArray = res;
+  //     for (this.media of this.mediaArray) {
+  //       if (this.media.extension == 'mp4') {
+  //         this.videoUrl = localhost + '/video/' + this.media.fileName + '.' + this.media.extension;
+  //         // console.log("videoooooo: " + this.videoUrl);
+  //       }
+  //     }
+  //   });
+  // }
 
-  playerVideo() {
-    this.StreamingMedia.playVideo(this.videoUrl);
-  }
+  // playerVideo() {
+  //   this.StreamingMedia.playVideo(this.videoUrl);
+  // }
 }

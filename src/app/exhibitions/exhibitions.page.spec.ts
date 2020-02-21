@@ -43,31 +43,66 @@ describe('ExhibitionsPage', () => {
         id: 1,
         name: "Gioconda",
         author: "Richard",
-        country: "efw"
+        country: "efw",
+        media: [{
+          id : 1,
+          displayName: "string",
+          fileName: "string",
+          fileType: "string",
+          extension: "string"
+        }]  
       },
       {
         id: 2,
         name: "Gioconda",
         author: "Richard",
-        country: "ewf"
+        country: "ewf",
+        media: [{
+          id : 1,
+          displayName: "string",
+          fileName: "string",
+          fileType: "string",
+          extension: "string"
+        }]  
       },
       {
         id: 3,
         name: "Gioconda",
         author: "Richard",
-        country: "ewfewf"
+        country: "ewfewf",
+        media: [{
+          id : 1,
+          displayName: "string",
+          fileName: "string",
+          fileType: "string",
+          extension: "string"
+        }]              
       },
       {
         id: 4,
         name: "Gioconda",
         author: "Richard",
-        country: "ewfewf"
+        country: "ewfewf",
+        media: [{
+          id : 1,
+          displayName: "string",
+          fileName: "string",
+          fileType: "string",
+          extension: "string"
+        }]  
       },
       {
         id: 5,
         name: "Gioconda",
         author: "Richard",
-        country: "ewfewf"
+        country: "ewfewf",
+        media: [{
+          id : 1,
+          displayName: "string",
+          fileName: "string",
+          fileType: "string",
+          extension: "string"
+        }]  
       },
     ];
 
@@ -97,6 +132,17 @@ describe('ExhibitionsPage', () => {
 
     expect(!component.audio.loop).toBeTruthy();
     expect(component.audioIsPlayed).toBeTruthy();
+  })
+
+  it('fun getArtworks', () => {
+    component.getExhibitions();
+    expect(component.artArray).toEqual(jasmine.any(Array));
+    for (let i = 0; i < component.artArray.length; i++) {
+      expect(component.artArray[i].id).toEqual(jasmine.any(Number));
+      expect(component.artArray[i].name).toEqual(jasmine.any(String));
+      expect(component.artArray[i].author).toEqual(jasmine.any(String));
+      expect(component.artArray[i].country).toEqual(jasmine.any(String));
+    }
   })
   
 
