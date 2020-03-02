@@ -16,7 +16,7 @@ export class HomePage   {
   ionViewWillEnter() {
     setTimeout(() => {
       this.route.navigate(['/exhibitions']);
-    }, 1990);
+    }, 0);
 
     setTimeout(() => {
       

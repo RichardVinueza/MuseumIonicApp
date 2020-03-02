@@ -17,6 +17,7 @@ export class Artworks {
   name: string;
   author: string;
   country: string;
+  media: [MediaApi];
 }
 
 export class MediaApi {
