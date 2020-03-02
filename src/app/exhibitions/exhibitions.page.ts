@@ -16,26 +16,28 @@ export class ExhibitionsPage implements OnInit {
 
   exhibitArray: Array<Exhibitions> = [];
   exhibit: Exhibitions;
-  auxEhibitArray: Array<Exhibitions> = [];
-  auxExhibit: Exhibitions;
-  exhibitBool: boolean;
+  // auxEhibitArray: Array<Exhibitions> = [];
+  // auxExhibit: Exhibitions;
+  // exhibitBool: boolean;
 
   artArray: Array<Artworks> = [];
   artArrayShow = new Array<Artworks>();
   art: Artworks;
   imgArtwork: any;
 
-  mediaArray: Array<MediaApi> = [];
-  media: MediaApi;
-
-  imgToShow: string;
-
-  audioLink: string;
-  audio = new Audio();
-  audioIsPlayed: boolean = false;
-
-  videoUrl: string;
   typeFileChoices: [String];
+
+  // mediaArray: Array<MediaApi> = [];
+  // media: MediaApi;
+
+  // imgToShow: string;
+
+  // audioLink: string;
+  // audio = new Audio();
+  // audioIsPlayed: boolean = false;
+
+  // videoUrl: string;
+
 
   constructor(
     private apiExhibit: ExhibitionsService,
