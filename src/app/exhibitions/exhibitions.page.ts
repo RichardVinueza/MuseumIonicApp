@@ -11,6 +11,7 @@ import { IBeacon } from '@ionic-native/ibeacon/ngx'
   templateUrl: './exhibitions.page.html',
   styleUrls: ['./exhibitions.page.scss'],
 })
+
 export class ExhibitionsPage implements OnInit {
 
   localhost = localhost;
