@@ -44,23 +44,10 @@ export class ExhibitionsPage implements OnInit {
 
   constructor(
     private apiExhibit: ExhibitionsService,
-    public storage: Storage
-    // private ibeacon: IBeacon
+    private storage: Storage,
+    private ibeacon: IBeacon
     // private StreamingMedia: StreamingMedia
-  ) {
-    this.setTheValue();
-    this.getTheValue();
-  }
-
-  setTheValue() {
-    this.storage.set('name', 'Richard');
-  }
-
-  getTheValue() {
-    this.storage.get('name').then((val) => {
-      console.log("My name is " + val)
-    })
-  }
+  ) {}
 
   ngOnInit() {
     this.getArtworks();
@@ -78,6 +65,11 @@ export class ExhibitionsPage implements OnInit {
     await this.apiExhibit.getExhibitionsFromBackEnd().subscribe((res: Array<Exhibitions>) => {
       this.exhibitArray = res;
       console.log(res);
+
+      this.storage.set('exhibitRes', res);
+      this.storage.get('exhibitRes').then( (val) => {
+        console.log('exhibit array', res);
+      })
       // setTimeout(() => {
       //   this.changeExhibition();
       // }, 5000);
@@ -98,10 +90,14 @@ export class ExhibitionsPage implements OnInit {
   async getArtworks() {
     await this.apiExhibit.getArtworksFromBackEnd().subscribe((res: Array<Artworks>) => {
       this.artArray = res;
+
+      this.storage.set('artworkRes', res);
+      this.storage.get('artworkRes').then( (val) => {
+        console.log('artwork array', val);
+      })
       // setTimeout(() => {
       //   this.changeArtwork();
       // }, 5000);
-
     });
   }
 

@@ -24,8 +24,6 @@ import { ExhibitionsPage } from './exhibitions/exhibitions.page';
     HttpClientModule,
     IonicModule.forRoot(),
     IonicStorageModule.forRoot()
-    
-
   ],
 
   providers: [
