@@ -4,12 +4,14 @@ import { StreamingMedia, StreamingVideoOptions } from '@ionic-native/streaming-m
 import { SplashScreen } from '@ionic-native/splash-screen';
 import { StatusBar } from '@ionic-native/status-bar';
 import { typeWithParameters } from '@angular/compiler/src/render3/util';
+import { IBeacon } from '@ionic-native/ibeacon/ngx'
 
 @Component({
   selector: 'app-exhibitions',
   templateUrl: './exhibitions.page.html',
   styleUrls: ['./exhibitions.page.scss'],
 })
+
 export class ExhibitionsPage implements OnInit {
 
   localhost = localhost;
@@ -41,7 +43,8 @@ export class ExhibitionsPage implements OnInit {
 
   constructor(
     private apiExhibit: ExhibitionsService,
-    private StreamingMedia: StreamingMedia
+    // private ibeacon: IBeacon
+    // private StreamingMedia: StreamingMedia
   ) { }
 
   ngOnInit() {
