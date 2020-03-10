@@ -4,7 +4,8 @@ import { StreamingMedia, StreamingVideoOptions } from '@ionic-native/streaming-m
 import { SplashScreen } from '@ionic-native/splash-screen';
 import { StatusBar } from '@ionic-native/status-bar';
 import { typeWithParameters } from '@angular/compiler/src/render3/util';
-import { IBeacon } from '@ionic-native/ibeacon/ngx'
+import { IBeacon } from '@ionic-native/ibeacon/ngx';
+import { Storage } from '@ionic/storage';
 
 @Component({
   selector: 'app-exhibitions',
@@ -43,9 +44,23 @@ export class ExhibitionsPage implements OnInit {
 
   constructor(
     private apiExhibit: ExhibitionsService,
+    public storage: Storage
     // private ibeacon: IBeacon
     // private StreamingMedia: StreamingMedia
-  ) { }
+  ) {
+    this.setTheValue();
+    this.getTheValue();
+  }
+
+  setTheValue() {
+    this.storage.set('name', 'Richard');
+  }
+
+  getTheValue() {
+    this.storage.get('name').then((val) => {
+      console.log("My name is " + val)
+    })
+  }
 
   ngOnInit() {
     this.getArtworks();
