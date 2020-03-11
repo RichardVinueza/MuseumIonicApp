@@ -45,7 +45,7 @@ export class ExhibitionsPage implements OnInit {
   constructor(
     private apiExhibit: ExhibitionsService,
     private storage: Storage,
-    private ibeacon: IBeacon
+    // private ibeacon: IBeacon
     // private StreamingMedia: StreamingMedia
   ) {}
 
