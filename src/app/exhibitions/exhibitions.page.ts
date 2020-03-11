@@ -47,7 +47,7 @@ export class ExhibitionsPage implements OnInit {
     private storage: Storage,
     // private ibeacon: IBeacon
     // private StreamingMedia: StreamingMedia
-  ) {}
+  ) { }
 
   ngOnInit() {
     this.getArtworks();
@@ -61,13 +61,13 @@ export class ExhibitionsPage implements OnInit {
     this.getExhibitions();
   }
 
-  async getExhibitions() {
-    await this.apiExhibit.getExhibitionsFromBackEnd().subscribe((res: Array<Exhibitions>) => {
+  getExhibitions() {
+    this.apiExhibit.getExhibitionsFromBackEnd().subscribe((res: Array<Exhibitions>) => {
       this.exhibitArray = res;
       console.log(res);
 
       this.storage.set('exhibitRes', res);
-      this.storage.get('exhibitRes').then( (val) => {
+      this.storage.get('exhibitRes').then((val) => {
         console.log('exhibit array', res);
       })
       // setTimeout(() => {
@@ -87,12 +87,12 @@ export class ExhibitionsPage implements OnInit {
   //   }
   // }
 
-  async getArtworks() {
-    await this.apiExhibit.getArtworksFromBackEnd().subscribe((res: Array<Artworks>) => {
+  getArtworks() {
+    this.apiExhibit.getArtworksFromBackEnd().subscribe((res: Array<Artworks>) => {
       this.artArray = res;
 
       this.storage.set('artworkRes', res);
-      this.storage.get('artworkRes').then( (val) => {
+      this.storage.get('artworkRes').then((val) => {
         console.log('artwork array', val);
       })
       // setTimeout(() => {
