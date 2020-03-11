@@ -47,10 +47,11 @@ export class ExhibitionsPage implements OnInit {
     private storage: Storage,
     // private ibeacon: IBeacon
     // private StreamingMedia: StreamingMedia
-  ) {}
+  ) { }
 
   ngOnInit() {
     this.getArtworks();
+    this.showErrorOnScreen();
     // this.getMedia();
     // this.getImg();
     // this.getAudio();
@@ -67,13 +68,17 @@ export class ExhibitionsPage implements OnInit {
       console.log(res);
 
       this.storage.set('exhibitRes', res);
-      this.storage.get('exhibitRes').then( (val) => {
+      this.storage.get('exhibitRes').then((val) => {
         console.log('exhibit array', res);
       })
       // setTimeout(() => {
       //   this.changeExhibition();
       // }, 5000);
     });
+  }
+
+  showErrorOnScreen() {
+    alert(console.error);
   }
 
   // changeExhibition() {
@@ -92,7 +97,7 @@ export class ExhibitionsPage implements OnInit {
       this.artArray = res;
 
       this.storage.set('artworkRes', res);
-      this.storage.get('artworkRes').then( (val) => {
+      this.storage.get('artworkRes').then((val) => {
         console.log('artwork array', val);
       })
       // setTimeout(() => {
