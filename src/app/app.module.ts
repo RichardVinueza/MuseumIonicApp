@@ -10,11 +10,22 @@ import { AppComponent } from './app.component';
 import { AppRoutingModule } from './app-routing.module';
 import { HttpClientModule } from '@angular/common/http';
 import { StreamingMedia } from '@ionic-native/streaming-media/ngx';
+import { IonicStorageModule } from '@ionic/storage';
+import { ExhibitionsPage } from './exhibitions/exhibitions.page';
 
 @NgModule({
   declarations: [AppComponent],
   entryComponents: [],
-  imports: [BrowserModule, IonicModule.forRoot(), AppRoutingModule, HttpClientModule],
+
+  imports: [
+    BrowserModule,
+    IonicModule.forRoot(),
+    AppRoutingModule,
+    HttpClientModule,
+    IonicModule.forRoot(),
+    IonicStorageModule.forRoot()
+  ],
+
   providers: [
     StatusBar,
     SplashScreen,

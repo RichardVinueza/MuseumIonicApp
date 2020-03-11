@@ -4,7 +4,8 @@ import { StreamingMedia, StreamingVideoOptions } from '@ionic-native/streaming-m
 import { SplashScreen } from '@ionic-native/splash-screen';
 import { StatusBar } from '@ionic-native/status-bar';
 import { typeWithParameters } from '@angular/compiler/src/render3/util';
-import { IBeacon } from '@ionic-native/ibeacon/ngx'
+import { IBeacon } from '@ionic-native/ibeacon/ngx';
+import { Storage } from '@ionic/storage';
 
 @Component({
   selector: 'app-exhibitions',
@@ -43,9 +44,10 @@ export class ExhibitionsPage implements OnInit {
 
   constructor(
     private apiExhibit: ExhibitionsService,
+    private storage: Storage,
     // private ibeacon: IBeacon
     // private StreamingMedia: StreamingMedia
-  ) { }
+  ) {}
 
   ngOnInit() {
     this.getArtworks();
@@ -63,6 +65,11 @@ export class ExhibitionsPage implements OnInit {
     await this.apiExhibit.getExhibitionsFromBackEnd().subscribe((res: Array<Exhibitions>) => {
       this.exhibitArray = res;
       console.log(res);
+
+      this.storage.set('exhibitRes', res);
+      this.storage.get('exhibitRes').then( (val) => {
+        console.log('exhibit array', res);
+      })
       // setTimeout(() => {
       //   this.changeExhibition();
       // }, 5000);
@@ -83,10 +90,14 @@ export class ExhibitionsPage implements OnInit {
   async getArtworks() {
     await this.apiExhibit.getArtworksFromBackEnd().subscribe((res: Array<Artworks>) => {
       this.artArray = res;
+
+      this.storage.set('artworkRes', res);
+      this.storage.get('artworkRes').then( (val) => {
+        console.log('artwork array', val);
+      })
       // setTimeout(() => {
       //   this.changeArtwork();
       // }, 5000);
-
     });
   }
 
