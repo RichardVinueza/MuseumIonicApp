@@ -51,7 +51,6 @@ export class ExhibitionsPage implements OnInit {
 
   ngOnInit() {
     this.getArtworks();
-    this.showErrorOnScreen();
     // this.getMedia();
     // this.getImg();
     // this.getAudio();
@@ -62,8 +61,8 @@ export class ExhibitionsPage implements OnInit {
     this.getExhibitions();
   }
 
-  async getExhibitions() {
-    await this.apiExhibit.getExhibitionsFromBackEnd().subscribe((res: Array<Exhibitions>) => {
+  getExhibitions() {
+    this.apiExhibit.getExhibitionsFromBackEnd().subscribe((res: Array<Exhibitions>) => {
       this.exhibitArray = res;
       console.log(res);
 
@@ -77,10 +76,6 @@ export class ExhibitionsPage implements OnInit {
     });
   }
 
-  showErrorOnScreen() {
-    alert(console.error);
-  }
-
   // changeExhibition() {
   //   for (this.exhibit of this.exhibitArray) {
   //     if (this.exhibit.id == 3 || this.exhibit.id == 2) {
@@ -92,8 +87,8 @@ export class ExhibitionsPage implements OnInit {
   //   }
   // }
 
-  async getArtworks() {
-    await this.apiExhibit.getArtworksFromBackEnd().subscribe((res: Array<Artworks>) => {
+  getArtworks() {
+    this.apiExhibit.getArtworksFromBackEnd().subscribe((res: Array<Artworks>) => {
       this.artArray = res;
 
       this.storage.set('artworkRes', res);
