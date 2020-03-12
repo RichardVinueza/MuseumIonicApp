@@ -6,6 +6,8 @@ import { StatusBar } from '@ionic-native/status-bar';
 import { typeWithParameters } from '@angular/compiler/src/render3/util';
 import { IBeacon } from '@ionic-native/ibeacon/ngx';
 import { Storage } from '@ionic/storage';
+import { BLE } from '@ionic-native/ble/ngx';
+import { NgZone } from '@angular/core';
 
 @Component({
   selector: 'app-exhibitions',
@@ -16,6 +18,8 @@ import { Storage } from '@ionic/storage';
 export class ExhibitionsPage implements OnInit {
 
   localhost = localhost;
+
+  devices: any[] = [];
 
   exhibitArray: Array<Exhibitions> = [];
   exhibit: Exhibitions;
@@ -45,8 +49,9 @@ export class ExhibitionsPage implements OnInit {
   constructor(
     private apiExhibit: ExhibitionsService,
     private storage: Storage,
-    // private ibeacon: IBeacon
-    // private StreamingMedia: StreamingMedia
+    private ibeacon :IBeacon,
+    private ble :BLE,
+    private ngZone: NgZone
   ) { }
 
   ngOnInit() {
@@ -59,6 +64,21 @@ export class ExhibitionsPage implements OnInit {
 
   ngAfterViewInit() {
     this.getExhibitions();
+  }
+
+  scanForBeacon(){
+    this.devices = [];
+    this.ble.scan([],60).subscribe(
+      device => this.onDeviceDiscovered(device)
+    );
+  }
+
+  onDeviceDiscovered(device){
+    console.log('Discovered' + JSON.stringify(device,null,2));
+    this.ngZone.run(() =>{
+      this.devices.push(device)
+      console.log(device);
+    })
   }
 
   getExhibitions() {

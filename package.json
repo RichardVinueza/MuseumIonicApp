@@ -19,6 +19,7 @@
     "@angular/platform-browser": "~8.1.2",
     "@angular/platform-browser-dynamic": "~8.1.2",
     "@angular/router": "~8.1.2",
+    "@ionic-native/ble": "^5.22.0",
     "@ionic-native/core": "^5.21.5",
     "@ionic-native/ibeacon": "^5.22.0",
     "@ionic-native/media": "^5.21.5",
@@ -86,7 +87,8 @@
       "cordova-plugin-ionic-keyboard": {},
       "cordova-plugin-streaming-media": {},
       "com.unarin.cordova.beacon": {},
-      "cordova-sqlite-storage": {}
+      "cordova-sqlite-storage": {},
+      "cordova-plugin-ble-central": {}
     },
     "platforms": [
       "browser",
