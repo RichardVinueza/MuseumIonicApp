@@ -68,7 +68,9 @@ export class ExhibitionsPage implements OnInit {
 
   scanForBeacon() {
     this.ble.startScan([]).subscribe(device => {
-      console.log(JSON.stringify(device));
+      if (device.name) {
+        console.log(device);
+      }
     });
   }
 
