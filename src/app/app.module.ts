@@ -20,11 +20,10 @@ import { IBeacon } from '@ionic-native/ibeacon/ngx';
   entryComponents: [],
 
   imports: [
-    BrowserModule,
     IonicModule.forRoot(),
+    BrowserModule,
     AppRoutingModule,
     HttpClientModule,
-    IonicModule.forRoot(),
     IonicStorageModule.forRoot(),
   ],
 

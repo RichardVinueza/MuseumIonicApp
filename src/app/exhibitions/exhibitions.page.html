@@ -57,14 +57,6 @@
   <ion-button (click)="scanForBeacon()"> 
     <ion-icon name="Bluetooth"></ion-icon>
   </ion-button>
-
-  <ion-list>
-    <ion-card-content ion-item *ngFor="let device of devices">
-      <p>{{device.name || 'Unnamed'}}</p>
-      <p>{{device.id}}</p>
-      <p>RSSI: {{device.rsii}}</p>
-    </ion-card-content>
-  </ion-list>
  
   <!-- <ion-img id="picture" style="display:block" class="exhibition" [src]='imgToShow'></ion-img> -->
   <!-- <ion-button class="exhibition" (click)="playerAudio()" size="small" color="secondary"></ion-button>>Play Audio

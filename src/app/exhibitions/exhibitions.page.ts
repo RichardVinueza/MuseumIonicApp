@@ -49,8 +49,8 @@ export class ExhibitionsPage implements OnInit {
   constructor(
     private apiExhibit: ExhibitionsService,
     private storage: Storage,
-    private ibeacon :IBeacon,
-    private ble :BLE,
+    private ibeacon: IBeacon,
+    private ble: BLE,
     private ngZone: NgZone
   ) { }
 
@@ -66,20 +66,12 @@ export class ExhibitionsPage implements OnInit {
     this.getExhibitions();
   }
 
-  scanForBeacon(){
-    this.devices = [];
-    this.ble.scan([],60).subscribe(
-      device => this.onDeviceDiscovered(device)
-    );
+  scanForBeacon() {
+    this.ble.startScan([]).subscribe(device => {
+      console.log(JSON.stringify(device));
+    });
   }
 
-  onDeviceDiscovered(device){
-    console.log('Discovered' + JSON.stringify(device,null,2));
-    this.ngZone.run(() =>{
-      this.devices.push(device)
-      console.log(device);
-    })
-  }
 
   getExhibitions() {
     this.apiExhibit.getExhibitionsFromBackEnd().subscribe((res: Array<Exhibitions>) => {
