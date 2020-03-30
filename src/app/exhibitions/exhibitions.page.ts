@@ -23,9 +23,6 @@ export class ExhibitionsPage implements OnInit {
 
   exhibitArray: Array<Exhibitions> = [];
   exhibit: Exhibitions;
-  // auxEhibitArray: Array<Exhibitions> = [];
-  // auxExhibit: Exhibitions;
-  // exhibitBool: boolean;
 
   artArray: Array<Artworks> = [];
   artArrayShow = new Array<Artworks>();
@@ -33,18 +30,6 @@ export class ExhibitionsPage implements OnInit {
   imgArtwork: any;
 
   typeFileChoices: [String];
-
-  // mediaArray: Array<MediaApi> = [];
-  // media: MediaApi;
-
-  // imgToShow: string;
-
-  // audioLink: string;
-  // audio = new Audio();
-  // audioIsPlayed: boolean = false;
-
-  // videoUrl: string;
-
 
   constructor(
     private apiExhibit: ExhibitionsService,
@@ -66,14 +51,14 @@ export class ExhibitionsPage implements OnInit {
     this.getExhibitions();
   }
 
-  scanForBeacon() {
+  scanForBeacons() {
+    console.log("ESCANEANDO...");
     this.ble.startScan([]).subscribe(device => {
-      if (device.name) {
-        console.log(device);
+      if (device.name) { 
+        console.log(JSON.stringify(device));
       }
-    });
+    })
   }
-
 
   getExhibitions() {
     this.apiExhibit.getExhibitionsFromBackEnd().subscribe((res: Array<Exhibitions>) => {
