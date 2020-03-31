@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { ExhibitionsService, Exhibitions, Artworks, MediaApi, localhost } from '../services/exhibitions.service';
+import { ExhibitionsService, Exhibitions, Artworks, MediaApi, localhost, Beacons } from '../services/exhibitions.service';
 import { StreamingMedia, StreamingVideoOptions } from '@ionic-native/streaming-media/ngx';
 import { SplashScreen } from '@ionic-native/splash-screen';
 import { StatusBar } from '@ionic-native/status-bar';
@@ -8,6 +8,7 @@ import { IBeacon } from '@ionic-native/ibeacon/ngx';
 import { Storage } from '@ionic/storage';
 import { BLE } from '@ionic-native/ble/ngx';
 import { NgZone } from '@angular/core';
+import { THIS_EXPR } from '@angular/compiler/src/output/output_ast';
 
 @Component({
   selector: 'app-exhibitions',
@@ -20,6 +21,9 @@ export class ExhibitionsPage implements OnInit {
   localhost = localhost;
 
   devices: any[] = [];
+  beaconArray: Array<Beacons> = [];
+  auxDevice: any;
+  beacon: any;
 
   exhibitArray: Array<Exhibitions> = [];
   exhibit: Exhibitions;
@@ -51,14 +55,30 @@ export class ExhibitionsPage implements OnInit {
     this.getExhibitions();
   }
 
+  getBeacons() {
+    this.apiExhibit.getBeaconsFromBackEnd().subscribe((res: Array<Beacons>) => {
+      this.beaconArray = res;
+    })
+  }
+
   scanForBeacons() {
+    this.getBeacons();
     console.log("ESCANEANDO...");
     this.ble.startScan([]).subscribe(device => {
-      if (device.name) { 
+      if (device.name) {
         console.log(JSON.stringify(device));
+      }
+      for (this.auxDevice in device) {
+        for (this.beacon in this.beaconArray) {
+          if (this.auxDevice.id == this.auxDevice.mac) {
+            console.log("MATCH");
+          }
+        }
       }
     })
   }
+
+  
 
   getExhibitions() {
     this.apiExhibit.getExhibitionsFromBackEnd().subscribe((res: Array<Exhibitions>) => {
@@ -75,6 +95,7 @@ export class ExhibitionsPage implements OnInit {
   getArtworks() {
     this.apiExhibit.getArtworksFromBackEnd().subscribe((res: Array<Artworks>) => {
       this.artArray = res;
+      console.log(res);
 
       this.storage.set('artworkRes', res);
       this.storage.get('artworkRes').then((val) => {
