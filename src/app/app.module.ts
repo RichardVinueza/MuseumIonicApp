@@ -12,24 +12,27 @@ import { HttpClientModule } from '@angular/common/http';
 import { StreamingMedia } from '@ionic-native/streaming-media/ngx';
 import { IonicStorageModule } from '@ionic/storage';
 import { ExhibitionsPage } from './exhibitions/exhibitions.page';
+import { BLE } from '@ionic-native/ble/ngx';
+import { IBeacon } from '@ionic-native/ibeacon/ngx';
 
 @NgModule({
   declarations: [AppComponent],
   entryComponents: [],
 
   imports: [
-    BrowserModule,
     IonicModule.forRoot(),
+    BrowserModule,
     AppRoutingModule,
     HttpClientModule,
-    IonicModule.forRoot(),
-    IonicStorageModule.forRoot()
+    IonicStorageModule.forRoot(),
   ],
 
   providers: [
     StatusBar,
     SplashScreen,
     StreamingMedia,
+    BLE,
+    IBeacon,
     { provide: RouteReuseStrategy, useClass: IonicRouteStrategy }
   ],
   bootstrap: [AppComponent]
