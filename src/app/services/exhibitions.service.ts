@@ -26,7 +26,12 @@ export class MediaApi {
   fileName: string;
   fileType: string;
   extension: string;
+}
 
+export class Beacons {
+  id: number;
+  mac: string;
+  artworkId: number;
 }
 
 @Injectable({
@@ -47,6 +52,10 @@ export class ExhibitionsService {
 
   getMediaFromBackEnd() {
     return this.http.get(localhost + "/medias");
+  }
+
+  getBeaconsFromBackEnd() {
+    return this.http.get(localhost + "/beacons");
   }
 
   // getImgFromBackEnd(){
