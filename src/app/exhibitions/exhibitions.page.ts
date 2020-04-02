@@ -1,13 +1,14 @@
 import { Component, OnInit } from '@angular/core';
-import { ExhibitionsService, Exhibitions, Artworks, MediaApi, localhost } from '../services/exhibitions.service';
+import { ExhibitionsService, Exhibitions, Artworks, MediaApi, localhost, Beacons } from '../services/exhibitions.service';
 import { StreamingMedia, StreamingVideoOptions } from '@ionic-native/streaming-media/ngx';
 import { SplashScreen } from '@ionic-native/splash-screen';
 import { StatusBar } from '@ionic-native/status-bar';
 import { typeWithParameters } from '@angular/compiler/src/render3/util';
 import { IBeacon } from '@ionic-native/ibeacon/ngx';
 import { Storage } from '@ionic/storage';
-import { BLE } from '@ionic-native/ble/ngx';
 import { NgZone } from '@angular/core';
+import { THIS_EXPR } from '@angular/compiler/src/output/output_ast';
+import { BLE } from '@ionic-native/ble/ngx';
 
 @Component({
   selector: 'app-exhibitions',
@@ -20,6 +21,9 @@ export class ExhibitionsPage implements OnInit {
   localhost = localhost;
 
   devices: any[] = [];
+  beaconArray: Array<Beacons> = [];
+  auxDevice: any;
+  beacon: any;
 
   exhibitArray: Array<Exhibitions> = [];
   exhibit: Exhibitions;
@@ -34,17 +38,12 @@ export class ExhibitionsPage implements OnInit {
   constructor(
     private apiExhibit: ExhibitionsService,
     private storage: Storage,
-    private ibeacon: IBeacon,
     private ble: BLE,
-    private ngZone: NgZone
+    private ibeacon:IBeacon
   ) { }
 
   ngOnInit() {
     this.getArtworks();
-    // this.getMedia();
-    // this.getImg();
-    // this.getAudio();
-    // this.getVideo();
   }
 
   ngAfterViewInit() {
@@ -52,11 +51,10 @@ export class ExhibitionsPage implements OnInit {
   }
 
   scanForBeacons() {
-    console.log("ESCANEANDO...");
+    console.log("START...");
     this.ble.startScan([]).subscribe(device => {
-      if (device.name) { 
-        console.log(JSON.stringify(device));
-      }
+      console.log("SCAN...");
+      console.log(JSON.stringify(device));
     })
   }
 
@@ -75,6 +73,7 @@ export class ExhibitionsPage implements OnInit {
   getArtworks() {
     this.apiExhibit.getArtworksFromBackEnd().subscribe((res: Array<Artworks>) => {
       this.artArray = res;
+      console.log(res);
 
       this.storage.set('artworkRes', res);
       this.storage.get('artworkRes').then((val) => {

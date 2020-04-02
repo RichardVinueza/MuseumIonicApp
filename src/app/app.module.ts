@@ -12,8 +12,8 @@ import { HttpClientModule } from '@angular/common/http';
 import { StreamingMedia } from '@ionic-native/streaming-media/ngx';
 import { IonicStorageModule } from '@ionic/storage';
 import { ExhibitionsPage } from './exhibitions/exhibitions.page';
-import { BLE } from '@ionic-native/ble/ngx';
 import { IBeacon } from '@ionic-native/ibeacon/ngx';
+import { BLE } from '@ionic-native/ble/ngx'
 
 @NgModule({
   declarations: [AppComponent],
