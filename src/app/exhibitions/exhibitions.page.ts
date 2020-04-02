@@ -6,9 +6,9 @@ import { StatusBar } from '@ionic-native/status-bar';
 import { typeWithParameters } from '@angular/compiler/src/render3/util';
 import { IBeacon } from '@ionic-native/ibeacon/ngx';
 import { Storage } from '@ionic/storage';
-import { BLE } from '@ionic-native/ble/ngx';
 import { NgZone } from '@angular/core';
 import { THIS_EXPR } from '@angular/compiler/src/output/output_ast';
+import { BLE } from '@ionic-native/ble/ngx';
 
 @Component({
   selector: 'app-exhibitions',
@@ -38,47 +38,25 @@ export class ExhibitionsPage implements OnInit {
   constructor(
     private apiExhibit: ExhibitionsService,
     private storage: Storage,
-    private ibeacon: IBeacon,
     private ble: BLE,
-    private ngZone: NgZone
+    private ibeacon:IBeacon
   ) { }
 
   ngOnInit() {
     this.getArtworks();
-    // this.getMedia();
-    // this.getImg();
-    // this.getAudio();
-    // this.getVideo();
   }
 
   ngAfterViewInit() {
     this.getExhibitions();
   }
 
-  getBeacons() {
-    this.apiExhibit.getBeaconsFromBackEnd().subscribe((res: Array<Beacons>) => {
-      this.beaconArray = res;
-    })
-  }
-
   scanForBeacons() {
-    this.getBeacons();
-    console.log("ESCANEANDO...");
+    console.log("START...");
     this.ble.startScan([]).subscribe(device => {
-      if (device.name) {
-        console.log(JSON.stringify(device));
-      }
-      for (this.auxDevice in device) {
-        for (this.beacon in this.beaconArray) {
-          if (this.auxDevice.id == this.auxDevice.mac) {
-            console.log("MATCH");
-          }
-        }
-      }
+      console.log("SCAN...");
+      console.log(JSON.stringify(device));
     })
   }
-
-  
 
   getExhibitions() {
     this.apiExhibit.getExhibitionsFromBackEnd().subscribe((res: Array<Exhibitions>) => {
