@@ -23,7 +23,7 @@ export class ExhibitionsPage implements OnInit {
   devices: any[] = [];
   beaconArray: Array<Beacons> = [];
   auxDevice: any;
-  beacon: any;
+  beacon: Beacons;
 
   exhibitArray: Array<Exhibitions> = [];
   exhibit: Exhibitions;
@@ -44,10 +44,17 @@ export class ExhibitionsPage implements OnInit {
 
   ngOnInit() {
     this.getArtworks();
+    this.getBeacons();
   }
 
   ngAfterViewInit() {
     this.getExhibitions();
+  }
+
+  getBeacons() {
+    this.apiExhibit.getBeaconsFromBackEnd().subscribe((res: Array<Beacons>) => {
+      this.beaconArray = res;
+    })
   }
 
   scanForBeacons() {
@@ -56,6 +63,11 @@ export class ExhibitionsPage implements OnInit {
       if (device.name) {
         console.log(JSON.stringify(device));
       }
+      for (this.beacon of this.beaconArray) {
+          if (this.beacon.mac == device.id) {
+            console.log("IDs MATCH");
+          }
+        }
     })
     console.log("BEACON FOUND");
   }
