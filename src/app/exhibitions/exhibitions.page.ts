@@ -43,8 +43,8 @@ export class ExhibitionsPage implements OnInit {
   ) { }
 
   ngOnInit() {
-    this.getArtworks();
     this.getBeacons();
+    this.getExhibitions();
   }
 
   ngAfterViewInit() {
@@ -65,7 +65,9 @@ export class ExhibitionsPage implements OnInit {
       }
       for (this.beacon of this.beaconArray) {
         if (this.beacon.mac == device.id) {
-          this.getExhibitions();
+          console.log("IDs MATCH");
+          document.getElementById("load-exhibit").style.display = "block";
+          this.getArtworks();
         }
       }
     })
