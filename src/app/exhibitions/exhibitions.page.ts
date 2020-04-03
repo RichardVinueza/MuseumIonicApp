@@ -48,7 +48,7 @@ export class ExhibitionsPage implements OnInit {
   }
 
   ngAfterViewInit() {
-    this.getExhibitions();
+    // this.getExhibitions();
   }
 
   getBeacons() {
@@ -64,10 +64,10 @@ export class ExhibitionsPage implements OnInit {
         console.log(JSON.stringify(device));
       }
       for (this.beacon of this.beaconArray) {
-          if (this.beacon.mac == device.id) {
-            console.log("IDs MATCH");
-          }
+        if (this.beacon.mac == device.id) {
+          this.getExhibitions();
         }
+      }
     })
     console.log("BEACON FOUND");
   }
