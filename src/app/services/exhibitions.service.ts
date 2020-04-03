@@ -58,8 +58,4 @@ export class ExhibitionsService {
     return this.http.get(localhost + "/beacons");
   }
 
-  // getImgFromBackEnd(){
-  //   return this.http.get(localhost + "/img/la_gioconda.jpg");
-  // }
-
 }

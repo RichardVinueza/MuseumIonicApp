@@ -39,7 +39,7 @@ export class ExhibitionsPage implements OnInit {
     private apiExhibit: ExhibitionsService,
     private storage: Storage,
     private ble: BLE,
-    private ibeacon:IBeacon
+    private ibeacon: IBeacon
   ) { }
 
   ngOnInit() {
@@ -51,14 +51,13 @@ export class ExhibitionsPage implements OnInit {
   }
 
   scanForBeacons() {
-    console.log("START...");
+    console.log("SCAN...");
     this.ble.startScan([]).subscribe(device => {
-      console.log("SCAN...");
-      if(device.name){
-        console.log(device);
+      if (device.name) {
+        console.log(JSON.stringify(device));
       }
-      console.log("BEACON FOUND");
     })
+    console.log("BEACON FOUND");
   }
 
   getExhibitions() {
