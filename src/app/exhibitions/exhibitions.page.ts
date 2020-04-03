@@ -7,7 +7,7 @@ import { typeWithParameters } from '@angular/compiler/src/render3/util';
 import { IBeacon } from '@ionic-native/ibeacon/ngx';
 import { Storage } from '@ionic/storage';
 import { NgZone } from '@angular/core';
-import { THIS_EXPR } from '@angular/compiler/src/output/output_ast';
+import { THIS_EXPR, IfStmt } from '@angular/compiler/src/output/output_ast';
 import { BLE } from '@ionic-native/ble/ngx';
 
 @Component({
@@ -54,7 +54,10 @@ export class ExhibitionsPage implements OnInit {
     console.log("START...");
     this.ble.startScan([]).subscribe(device => {
       console.log("SCAN...");
-      console.log(JSON.stringify(device));
+      if(device.name){
+        console.log(device);
+      }
+      console.log("BEACON FOUND");
     })
   }
 
