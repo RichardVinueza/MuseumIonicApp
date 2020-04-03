@@ -43,11 +43,13 @@ export class ExhibitionsPage implements OnInit {
   ) { }
 
   ngOnInit() {
-    this.getBeacons();
-    this.getExhibitions();
+
   }
 
-  ngAfterViewInit() {
+  ionViewDidEnter() {
+    this.getBeacons();
+    this.getExhibitions();
+    this.scanForBeacons();
     // this.getExhibitions();
   }
 
