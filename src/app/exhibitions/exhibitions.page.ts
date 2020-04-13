@@ -23,7 +23,7 @@ export class ExhibitionsPage implements OnInit {
   devices: any[] = [];
   beaconArray: Array<Beacons> = [];
   auxDevice: any;
-  beacon: any;
+  beacon: Beacons;
 
   exhibitArray: Array<Exhibitions> = [];
   exhibit: Exhibitions;
@@ -39,26 +39,41 @@ export class ExhibitionsPage implements OnInit {
     private apiExhibit: ExhibitionsService,
     private storage: Storage,
     private ble: BLE,
-    private ibeacon:IBeacon
+    private ibeacon: IBeacon
   ) { }
 
   ngOnInit() {
-    this.getArtworks();
+
   }
 
-  ngAfterViewInit() {
+  ionViewDidEnter() {
+    this.getBeacons();
     this.getExhibitions();
+    this.scanForBeacons();
+    // this.getExhibitions();
+  }
+
+  getBeacons() {
+    this.apiExhibit.getBeaconsFromBackEnd().subscribe((res: Array<Beacons>) => {
+      this.beaconArray = res;
+    })
   }
 
   scanForBeacons() {
-    console.log("START...");
+    console.log("SCAN...");
     this.ble.startScan([]).subscribe(device => {
-      console.log("SCAN...");
-      if(device.name){
-        console.log(device);
+      if (device.name) {
+        console.log(JSON.stringify(device));
       }
-      console.log("BEACON FOUND");
+      for (this.beacon of this.beaconArray) {
+        if (this.beacon.mac == device.id) {
+          console.log("IDs MATCH");
+          document.getElementById("load-exhibit").style.display = "block";
+          this.getArtworks();
+        }
+      }
     })
+    console.log("BEACON FOUND");
   }
 
   getExhibitions() {
